@@ -1,11 +1,12 @@
 {
   "name": "todo-list",
+  "productName": "ToDo-List MVG",
   "version": "1.0.0",
   "description": "daily task list",
   "keywords": [
     "ToDo-List"
   ],
-  "homepage": "https://github.com/daneecool/electron-app#readme",
+  "homepage": "https://github.com/daneecool/electron-app#readme", 
   "bugs": {
     "url": "https://github.com/daneecool/electron-app/issues"
   },
@@ -13,14 +14,18 @@
     "type": "git",
     "url": "git+https://github.com/daneecool/electron-app.git"
   },
-  "license": "ISC",
+  "license": "MIT",
   "author": "Daniel",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ."
   },
   "devDependencies": {
     "electron": "^35.1.0"
+  },
+  "dependencies": {
+    "toastify-js": "^1.12.0",
+    "todo-list": "^0.0.3"
   }
 }
