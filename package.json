@@ -19,7 +19,6 @@
   "type": "commonjs",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
     "build": "electron-builder"
   },
   "devDependencies": {
@@ -34,7 +33,7 @@
   },
   "build": {
     "appId": "todo-list",
-    "productName": "com.daneecool.ToDo-List MVG",
+    "productName": "Todo-List",
     "win": {
       "target": "nsis",
       "icon": "build/icon.ico"
