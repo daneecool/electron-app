@@ -19,7 +19,8 @@
   "type": "commonjs",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder"
   },
   "devDependencies": {
     "electron": "^35.1.0",
@@ -30,5 +31,23 @@
     "sqlite3": "^5.1.7",
     "toastify-js": "^1.12.0",
     "todo-list": "^0.0.3"
+  },
+  "build": {
+    "appId": "todo-list",
+    "productName": "com.daneecool.ToDo-List MVG",
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "installerIcon": "build/installer-icon.ico",
+      "uninstallerIcon": "build/uninstaller-icon.ico",
+      "uninstallDisplayName": "ToDo-List MVG 1.0.0"
+    }
   }
 }
