@@ -13,7 +13,7 @@ function createWindow() {
     height: 600,
   });
 
-  mainWindow.loadFile(path.join(__dirname, './View/index.html'));   // path to directory where index.html is located
+  mainWindow.loadFile(path.join(__dirname, './Todo-List/index.html'));   // path to directory where index.html is located
 }
 
 /*

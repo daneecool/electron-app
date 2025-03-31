@@ -34,9 +34,14 @@ var list = document.querySelector('ul');
 /* 
  * Adds "click" event listener to the <ul> element
  * When a list item is clicked, it toggles the class "checked" to the clicked item
+ * Solution:
+    Always compare ev.target.tagName to 'LI' (uppercase), 
+    as this is the correct value returned by the tagName property. 
+    Use 'li' (lowercase), the condition will fail, 
+    and the functionality will not work.
  */
 list.addEventListener('click', function(ev) {
-  if (ev.target.tagName === 'li') {
+  if (ev.target.tagName === 'LI') {
     ev.target.classList.toggle('checked');
   }
 }, false);
