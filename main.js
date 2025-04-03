@@ -2,9 +2,9 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('node:path');
 const sqlite3 = require('sqlite3');
 
-const MacOS = process.platform === 'darwin';  // Check if the platform is MacOS, darwin  a linux base 
+const MacOS = process.platform === 'darwin';
 
-// Use __dirname to build an absolute path to todos.db
+// Use app.getPath('userData') to store the database in a user-writeable location
 const dbPath = path.join(__dirname, 'todos.db');
 console.log('DB path:', dbPath);
 const db = new sqlite3.Database(dbPath, err => {
