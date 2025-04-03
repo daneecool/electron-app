@@ -19,17 +19,12 @@
   "type": "commonjs",
   "main": "main.js",
   "scripts": {
+    "start": "electron .",
     "build": "electron-builder"
   },
   "devDependencies": {
     "electron": "^35.1.0",
-    "electron-builder": "^26.0.12",
-    "electron-packager": "^17.1.2"
-  },
-  "dependencies": {
-    "sqlite3": "^5.1.7",
-    "toastify-js": "^1.12.0",
-    "todo-list": "^0.0.3"
+    "electron-builder": "^26.0.12"
   },
   "build": {
     "appId": "todo-list",
@@ -48,5 +43,8 @@
       "uninstallerIcon": "build/uninstaller-icon.ico",
       "uninstallDisplayName": "ToDo-List MVG 1.0.0"
     }
+  },
+  "dependencies": {
+    "sqlite3": "^5.1.7"
   }
 }

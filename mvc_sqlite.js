@@ -1,81 +1,26 @@
-const sqlite3 = require('sqlite3').verbose();
+const { ipcRenderer } = require('electron');
 
-// Model: Handles data storage and retrieval using SQLite
+// Model: Uses IPC to communicate with main process
 class Model {
-    constructor() {
-        // Initialize SQLite database
-        this.db = new sqlite3.Database('./todos.db', (err) => {
-            if (err) {
-                console.error('Error opening database:', err.message);
-            } else {
-                console.log('Connected to SQLite database.');
-                this.db.run(`
-                    CREATE TABLE IF NOT EXISTS todos (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        text TEXT NOT NULL,
-                        completed INTEGER NOT NULL DEFAULT 0
-                    )
-                `);
-            }
-        });
-    }
-
-    // Get all todos
     getTodos(callback) {
-        this.db.all('SELECT * FROM todos', (err, rows) => {
-            if (err) {
-                console.error('Error fetching todos:', err.message);
-                callback([]);
-            } else {
-                callback(rows);
-            }
-        });
+         ipcRenderer.invoke('getTodos').then(todos => {
+              callback(todos);
+         });
     }
-
-    // Add a new todo
     addTodo(todoText, callback) {
-        this.db.run(
-            'INSERT INTO todos (text, completed) VALUES (?, ?)',
-            [todoText, 0],
-            function (err) {
-                if (err) {
-                    console.error('Error adding todo:', err.message);
-                }
-                callback();
-            }
-        );
+         ipcRenderer.invoke('addTodo', todoText).then(() => {
+              callback();
+         });
     }
-
-    // Toggle the completed state of a todo
     toggleTodo(id, callback) {
-        this.db.get('SELECT completed FROM todos WHERE id = ?', [id], (err, row) => {
-            if (err) {
-                console.error('Error toggling todo:', err.message);
-                callback();
-            } else {
-                const newCompletedState = row.completed === 0 ? 1 : 0;
-                this.db.run(
-                    'UPDATE todos SET completed = ? WHERE id = ?',
-                    [newCompletedState, id],
-                    (err) => {
-                        if (err) {
-                            console.error('Error updating todo:', err.message);
-                        }
-                        callback();
-                    }
-                );
-            }
-        });
+         ipcRenderer.invoke('toggleTodo', id).then(() => {
+              callback();
+         });
     }
-
-    // Remove a todo by ID
     removeTodo(id, callback) {
-        this.db.run('DELETE FROM todos WHERE id = ?', [id], (err) => {
-            if (err) {
-                console.error('Error removing todo:', err.message);
-            }
-            callback();
-        });
+         ipcRenderer.invoke('removeTodo', id).then(() => {
+              callback();
+         });
     }
 }
 
@@ -156,8 +101,10 @@ class Controller {
     }
 
     handleAddTodo(todoText) {
+        console.log('Handling add todo:', todoText); // Debugging log
         this.model.addTodo(todoText, () => {
             this.model.getTodos((todos) => {
+                console.log('Todos after adding:', todos); // Debugging log
                 this.view.renderTodos(todos);
             });
         });
