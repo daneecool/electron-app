@@ -1,3 +1,5 @@
+// Author: Daniel
+
 /* 
  * Model-View-Controller (MVC) Architecture for a To-Do List Application
  * 

@@ -1,3 +1,7 @@
+/* 
+    Source: https://www.w3schools.com/howto/howto_js_todolist.asp
+*/
+
 /* Include the padding and border in an element's total width and height */
 * {
     box-sizing: border-box;
