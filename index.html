@@ -4,7 +4,7 @@
 -->
 
 <!-- This is the original code from W3Schools -->
- <!-- <div id="myDIV" class="header">
+<!-- <div id="myDIV" class="header">
     <h2>My To Do List</h2>
     <input type="text" id="myInput" placeholder="Title...">
     <span onclick="newElement()" class="addBtn">Add</span>
@@ -26,6 +26,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My To Do List</title>
+    <!-- Set a strict Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';">
     <!-- Link to the CSS file -->
     <link rel="stylesheet" href="./header.css">
 </head>

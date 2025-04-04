@@ -163,7 +163,7 @@ class Controller {
         //  * "this" and it will automatically capture the surrounding context.
         //  */
         //
-        // // Bind view events to the controller's handler methods, ensuring 'this' context is preserved
+        // Bind view events to the controller's handler methods, ensuring 'this' context is preserved
         // this.view.bindAddTodo(this.handleAddTodo.bind(this)); // Bind the add todo event to the controller's add handler
         // this.view.bindToggleTodo(this.handleToggleTodo.bind(this)); // Bind the toggle event to the controller's toggle handler
         // this.view.bindRemoveTodo(this.handleRemoveTodo.bind(this)); // Bind the remove event to the controller's remove handler
@@ -173,12 +173,16 @@ class Controller {
          *Defining handler methods as arrow functions in the class removes the need for 
          *repetitive binding in the constructor, resulting in more concise and readable code.
          */
+        // Bind handler methods explicitly so "this" refers to the Controller instance.
+        this.handleAddTodo = this.handleAddTodo.bind(this);
+        this.handleToggleTodo = this.handleToggleTodo.bind(this);
+        this.handleRemoveTodo = this.handleRemoveTodo.bind(this);
         // Now no need to bind since arrow functions automatically bind "this"
         this.view.bindAddTodo(this.handleAddTodo); // Bind the add todo event to the controller's add handler
         this.view.bindToggleTodo(this.handleToggleTodo); // Bind the toggle event to the controller's toggle handler
         this.view.bindRemoveTodo(this.handleRemoveTodo); // Bind the remove event to the controller's remove handler
     }
-    
+
     // Handler method for adding a new todo item
     handleAddTodo(todoText) {
         console.log('Handling add todo:', todoText); // Log the todo text for debugging purposes

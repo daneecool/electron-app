@@ -10,8 +10,12 @@ const MacOS = process.platform === 'darwin';
 
 // Build the database file path
 // Currently, the database is stored in the same folder as the main.js file
-const dbPath = path.join(__dirname, 'todos.db');               
+const dbPath = path.join(__dirname, 'todos.db');   
 console.log('DB path:', dbPath);  // Log the database path to the console for debugging
+
+// Build the preload script path using __dirname and path.join
+const preloadPath = path.join(__dirname, 'preload.js');
+console.log('preload:', preloadPath);  // Log the database path to the console for debugging
 
 // Open (or create) the SQLite database located at dbPath
 const db = new sqlite3.Database(dbPath, err => {
@@ -46,6 +50,9 @@ const win = new BrowserWindow({
 
   // Load the index.html file into the window
   win.loadFile(path.join(__dirname, './index.html'));   // Provide the path to the index.html file
+
+  // Open the DevTools for debugging (optional)
+  win.webContents.openDevTools();  // Open Developer Tools for the window
 }
 
 /*
@@ -75,6 +82,7 @@ app.on('window-all-closed', () => {
 
 // IPC Handlers for SQLite operations
 ipcMain.handle('getTodos', () => {
+    console.log('Preload for getTodos status - O.K') // this is to check preload script is executed or not
     return new Promise((resolve, reject) => {
          // Run a SQL query to select all records from the todos table
          db.all('SELECT * FROM todos', (err, rows) => {
@@ -85,6 +93,7 @@ ipcMain.handle('getTodos', () => {
 
 // Insert a new todo using the provided text
 ipcMain.handle('addTodo', (event, todoText) => {
+    console.log('Preload for addTodo status - O.K')
     return new Promise((resolve, reject) => {
          // Run a SQL INSERT statement; set completed as 0 (false) by default
         db.run('INSERT INTO todos (text, completed) VALUES (?, ?)', [todoText, 0], function(err) {
@@ -95,6 +104,7 @@ ipcMain.handle('addTodo', (event, todoText) => {
 
 // Toggle the completion state of a todo (switch between 0 and 1)
 ipcMain.handle('toggleTodo', (event, id) => {
+    console.log('Preload for toggleTodo status - O.K')
     return new Promise((resolve, reject) => {
         // Retrieve the current completed state of the todo with the given id
         db.get('SELECT completed FROM todos WHERE id = ?', [id], (err, row) => {
@@ -113,6 +123,7 @@ ipcMain.handle('toggleTodo', (event, id) => {
 
 // Remove a todo from the database by id
 ipcMain.handle('removeTodo', (event, id) => {
+    console.log('Preload for removeTodo status - O.K')
     return new Promise((resolve, reject) => {
          // Run a SQL DELETE statement to remove the todo with the specified id
         db.run('DELETE FROM todos WHERE id = ?', [id], err => {
